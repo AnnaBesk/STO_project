@@ -1,4 +1,5 @@
 import pygame
+import math
 
 pygame.init()
 
@@ -22,20 +23,26 @@ polz = pygame.Surface((30, 30))
 polz.fill((255, 0, 0))
 osn.fill((0, 0, 255))
 
-v = 0
-x = 0
+# переменные
+v = 0  # скорость
+x = 0  # координата ползунка
 l = 0
+c = 3000000000
+b = v ** 2 / c ** 2
+y = 1 / math.sqrt(1 - b)
 osn.blit(polz, (x, 0))
 sc.blit(osn, (500, 600))
 
 # стержни
-x_0 = 300  # натуральная длина
-surf_l = pygame.Surface((x_0, 20))
+l_0 = 300  # натуральная длина
+surf_l = pygame.Surface((l_0, 20))
 surf_l.fill(gold)
 
 l_s = 300  # длина, которую видим
 surf_s = pygame.Surface((l_s, 20))
 surf_s.fill(gold)
+
+
 
 # шрифт
 font = pygame.font.SysFont('timesnewroman', 32)
@@ -45,6 +52,9 @@ follow = font.render('Специальная теория относительн
 nach_zn = font.render('1', 0, gold)
 con_zn = font.render('300,000,000', 0, gold)
 tec_zn = font.render(str(v), 0, gold)
+
+r=(l_s/l_0)*100
+rit=font.render(str(r),0, gold)
 
 while True:
     for event in pygame.event.get():
@@ -70,13 +80,23 @@ while True:
     sc.blit(nach_zn, (480, 600))
     sc.blit(con_zn, (705, 600))
 
+
     # текущее значение скорости
     tec_zn = font.render(str(v), 0, gold)
     sc.blit(tec_zn, (600, 650))
 
+    # гамма и бетта
+    b = v ** 2 / c ** 2
+    y = 1 / math.sqrt(1 - b)
+
     # меняю длину стержня
+    l_s = round(l_0 / y, 3)
     surf_s = pygame.Surface((l_s, 20))
     surf_s.fill(gold)
+
+    r = round((l_s / l_0) * 100, 2)
+    rit = font.render(str(r)+'%', 0, gold)
+    sc.blit(rit, (1000, 500))
 
     # рисую стержни
     sc.blit(surf_l, (50, 200))

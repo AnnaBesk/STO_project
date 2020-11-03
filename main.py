@@ -43,8 +43,6 @@ l_s = 300  # длина, которую видим
 surf_s = pygame.Surface((l_s, 20))
 surf_s.fill(gold)
 
-
-
 # шрифт
 font = pygame.font.SysFont('timesnewroman', 32)
 
@@ -54,8 +52,8 @@ nach_zn = font.render('1', 0, gold)
 con_zn = font.render('300,000,000', 0, gold)
 tec_zn = font.render(str(v), 0, gold)
 
-r=(l_s/l_0)*100
-rit=font.render(str(r),0, gold)
+r = (l_s / l_0) * 100
+rit = font.render(str(r), 0, gold)
 
 while True:
     for event in pygame.event.get():
@@ -81,10 +79,10 @@ while True:
     sc.blit(nach_zn, (480, 600))
     sc.blit(con_zn, (705, 600))
 
-
     # текущее значение скорости
     tec_zn = font.render(str(v), 0, gold)
-    sc.blit(tec_zn, (600, 650))
+    place = tec_zn.get_rect(center=(600, 650))
+    sc.blit(tec_zn, place)
 
     # гамма и бетта
     b = v ** 2 / c ** 2
@@ -96,7 +94,7 @@ while True:
     surf_s.fill(gold)
 
     r = round((l_s / l_0) * 100, 2)
-    rit = font.render(str(r)+'%', 0, gold)
+    rit = font.render(str(r) + '%', 0, gold)
     sc.blit(rit, (450, 500))
 
     # рисую стержни

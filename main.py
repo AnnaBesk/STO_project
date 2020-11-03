@@ -12,16 +12,17 @@ pygame.display.set_caption("Специальная теория относите
 gold = (218, 165, 32)
 red = (255, 0, 0)
 green = (47, 79, 79)
+white = (255, 255, 255)
 
 # экран
 sc.fill(green)
 
 # slider
 osn = pygame.Surface((200, 30))
-polz = pygame.Surface((30, 30))
+polz = pygame.Surface((10, 30))
 
-polz.fill((255, 0, 0))
-osn.fill((0, 0, 255))
+polz.fill(gold)
+osn.fill(white)
 
 # переменные
 v = 0  # скорость
@@ -30,7 +31,7 @@ l = 0
 c = 3000000000
 b = v ** 2 / c ** 2
 y = 1 / math.sqrt(1 - b)
-osn.blit(polz, (x, 0))
+osn.blit(polz, (x, 20))
 sc.blit(osn, (500, 600))
 
 # стержни
@@ -62,15 +63,15 @@ while True:
             quit()
         if event.type == pygame.MOUSEBUTTONUP:
             x, l = pygame.mouse.get_pos()
-            x = x - 515
-            if x > 170:
-                x = 170
-                v = x * 17647000
+            x = x - 505
+            if x > 190:
+                x = 190
+                v = x * 15789473
             elif x < 0:
                 x = 0
-                v = x * 17647000
+                v = x * 15789473
             else:
-                v = x * 17647000
+                v = x * 15789473
 
     # экран
     sc.fill(green)
@@ -96,7 +97,7 @@ while True:
 
     r = round((l_s / l_0) * 100, 2)
     rit = font.render(str(r)+'%', 0, gold)
-    sc.blit(rit, (1000, 500))
+    sc.blit(rit, (450, 500))
 
     # рисую стержни
     sc.blit(surf_l, (50, 200))
@@ -105,9 +106,10 @@ while True:
     # рисую линию
     pygame.draw.line(sc, gold, [0, 360], [1200, 360], 4)
 
-    osn.fill((0, 0, 255))
+    osn.fill(white)
 
     osn.blit(polz, (x, 0))
     sc.blit(osn, (500, 600))
+
     pygame.display.update()
     pygame.time.delay(100)

@@ -48,7 +48,7 @@ del_a_s = math.radians(3.6)*t_s
 
 # расположение часов
 
-rd = 50
+rd = 75
 # начальная позиция первых часов
 pos_x_r = 900
 pos_y_r = 500
@@ -111,6 +111,9 @@ while True:
                 v = x * 1578944
             else:
                 v = x * 1578944
+
+            angle_s=math.radians(-90)
+            angle_r=math.radians(-90)
 
     # экран
     sc.fill(green)

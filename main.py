@@ -13,6 +13,7 @@ gold = (218, 165, 32)
 red = (255, 0, 0)
 green = (47, 79, 79)
 white = (255, 255, 255)
+black = (0, 0, 0)
 
 # экран
 sc.fill(green)
@@ -67,8 +68,8 @@ f_pos_y_s = math.sin(angle_s) * rd
 f_pos_s = (f_pos_x_s + pos_x_s, f_pos_y_s + pos_y_s)
 
 # циферблат
-pygame.draw.circle(sc, white, pos_r, rd, 3)
-pygame.draw.circle(sc, white, pos_s, rd, 3)
+pygame.draw.circle(sc, gold, pos_r, rd, 75)
+pygame.draw.circle(sc, gold, pos_s, rd, 75)
 
 # стрелки
 pygame.draw.line(sc, white, pos_r, f_pos_r, 3)
@@ -160,8 +161,8 @@ while True:
     f_pos_s = (f_pos_x_s + pos_x_s, f_pos_y_s + pos_y_s)
 
     # рисую часы
-    pygame.draw.circle(sc, white, pos_r, rd, 3)
-    pygame.draw.circle(sc, white, pos_s, rd, 3)
+    pygame.draw.circle(sc, gold, pos_r, rd, 75)
+    pygame.draw.circle(sc, gold, pos_s, rd, 75)
 
     pygame.draw.line(sc, white, pos_r, f_pos_r, 3)
     pygame.draw.line(sc, white, pos_s, f_pos_s, 3)

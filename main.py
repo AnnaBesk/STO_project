@@ -68,12 +68,20 @@ f_pos_y_s = math.sin(angle_s) * rd
 f_pos_s = (f_pos_x_s + pos_x_s, f_pos_y_s + pos_y_s)
 
 # циферблат
-pygame.draw.circle(sc, gold, pos_r, rd, 75)
-pygame.draw.circle(sc, gold, pos_s, rd, 75)
+pygame.draw.circle(sc, gold, pos_r, rd + 8, 83)
+pygame.draw.circle(sc, white, pos_r, rd + 5, 80)
+pygame.draw.circle(sc, white, pos_r, rd, 75)
+
+pygame.draw.circle(sc, gold, pos_s, rd + 8, 83)
+pygame.draw.circle(sc, white, pos_s, rd + 5, 80)
+pygame.draw.circle(sc, white, pos_s, rd, 75)
 
 # стрелки
-pygame.draw.line(sc, white, pos_r, f_pos_r, 3)
-pygame.draw.line(sc, white, pos_s, f_pos_s, 3)
+pygame.draw.line(sc, black, pos_r, f_pos_r, 3)
+pygame.draw.line(sc, black, pos_s, f_pos_s, 3)
+
+pygame.draw.circle(sc, black, pos_r, 5, 5)
+pygame.draw.circle(sc, black, pos_s, 5, 5)
 
 # стержни
 l_0 = 300  # натуральная длина
@@ -81,6 +89,7 @@ surf_l = pygame.Surface((l_0, 20))
 surf_l.fill(gold)
 
 l_s = 300  # длина, которую видим
+
 surf_s = pygame.Surface((l_s, 20))
 surf_s.fill(gold)
 
@@ -92,6 +101,8 @@ follow = font.render('Специальная теория относительн
 nach_zn = font.render('0', 0, gold)
 con_zn = font.render('300,000 ', 0, gold)
 tec_zn = font.render(str(v), 0, gold)
+dv = font.render('Движущаяся СО', 1, gold)
+st = font.render('Статичная СО', 1, gold)
 
 r = (l_s / l_0) * 100
 rit = font.render(str(r), 0, gold)
@@ -114,6 +125,8 @@ while True:
 
             angle_s = math.radians(-90)
             angle_r = math.radians(-90)
+            dv = font.render('Движущаяся СО', 1, green)
+            st = st = font.render('Статичная СО', 1, green)
 
     # экран
     sc.fill(green)
@@ -122,6 +135,12 @@ while True:
     sc.blit(follow, (350, 0))
     sc.blit(nach_zn, (480, 600))
     sc.blit(con_zn, (705, 600))
+
+    place_1 = dv.get_rect(center=(600, 300))
+    sc.blit(dv, place_1)
+
+    place_2 = st.get_rect(center=(600, 420))
+    sc.blit(st, place_2)
 
     # текущее значение скорости
     v_km = int(round(v / 1000, 0))
@@ -161,12 +180,19 @@ while True:
     f_pos_s = (f_pos_x_s + pos_x_s, f_pos_y_s + pos_y_s)
 
     # рисую часы
-    pygame.draw.circle(sc, gold, pos_r, rd, 75)
-    pygame.draw.circle(sc, gold, pos_s, rd, 75)
+    pygame.draw.circle(sc, gold, pos_r, rd + 8, 83)
+    pygame.draw.circle(sc, white, pos_r, rd + 5, 80)
+    pygame.draw.circle(sc, white, pos_r, rd, 75)
 
-    pygame.draw.line(sc, white, pos_r, f_pos_r, 3)
-    pygame.draw.line(sc, white, pos_s, f_pos_s, 3)
+    pygame.draw.circle(sc, gold, pos_s, rd + 8, 83)
+    pygame.draw.circle(sc, white, pos_s, rd + 5, 80)
+    pygame.draw.circle(sc, white, pos_s, rd, 75)
 
+    pygame.draw.line(sc, black, pos_r, f_pos_r, 3)
+    pygame.draw.line(sc, black, pos_s, f_pos_s, 3)
+
+    pygame.draw.circle(sc, black, pos_r, 5, 5)
+    pygame.draw.circle(sc, black, pos_s, 5, 5)
     # рисую линию
     pygame.draw.line(sc, gold, [0, 360], [1200, 360], 4)
 

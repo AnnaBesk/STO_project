@@ -88,9 +88,13 @@ l_0 = 300  # натуральная длина
 surf_l = pygame.Surface((l_0, 20))
 surf_l.fill(gold)
 
-l_s = 300  # длина, которую видим
+l_s = 300  # длина, к которой стремимся
+d_l=0
 
 surf_s = pygame.Surface((l_s, 20))
+surf_d = pygame.Surface((300-l_s, 20))
+surf_d.fill(white)
+surf_d.set_alpha(200)
 surf_s.fill(gold)
 
 # шрифт
@@ -154,6 +158,9 @@ while True:
 
     # меняю длину стержня
     l_s = round(l_0 / y, 3)
+    surf_d = pygame.Surface((300-l_s, 20))
+    surf_d.fill(white)
+    surf_d.set_alpha(80)
     surf_s = pygame.Surface((l_s, 20))
     surf_s.fill(gold)
 
@@ -162,6 +169,7 @@ while True:
     sc.blit(rit, (450, 500))
 
     # рисую стержни
+    sc.blit(surf_d, (50 + l_s, 500))
     sc.blit(surf_l, (50, 200))
     sc.blit(surf_s, (50, 500))
 

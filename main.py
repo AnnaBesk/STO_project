@@ -131,83 +131,110 @@ while True:
             angle_r = math.radians(-90)
             dv = font.render('Движущаяся СО', 1, green)
             st = st = font.render('Статичная СО', 1, green)
+    if pygame.mouse.get_pressed()[0]:
+        x, l = pygame.mouse.get_pos()
+        x = x - 505
+        if x > 190:
+            x = 190
+            vp = x * 1578944
+        elif x < 0:
+            x = 0
+            vp = x * 1578944
+        else:
+            vp = x * 1578944
+        # текущее значение скорости
+        sp=pygame.Surface((400, 70))
+        sp.fill(green)
+        v_km = int(round(vp / 1000, 0))
+        tec_zn = font.render(str(v_km) + ' km/s', 0, gold)
+        place = tec_zn.get_rect(center=(600, 650))
+        place_p = (500,638)
+        sc.blit(sp, place_p)
+        sc.blit(tec_zn, place)
+        # полунок
 
-    # экран
-    sc.fill(green)
+        osn.fill(white)
+        osn.blit(polz, (x, 0))
+        sc.blit(osn, (500, 600))
 
-    # надписи
-    sc.blit(follow, (350, 0))
-    sc.blit(nach_zn, (480, 600))
-    sc.blit(con_zn, (705, 600))
 
-    place_1 = dv.get_rect(center=(600, 300))
-    sc.blit(dv, place_1)
+    else:
+        #экран
+        sc.fill(green)
+        # надписи
+        sc.blit(follow, (350, 0))
+        sc.blit(nach_zn, (480, 600))
+        sc.blit(con_zn, (705, 600))
 
-    place_2 = st.get_rect(center=(600, 420))
-    sc.blit(st, place_2)
+        place_1 = dv.get_rect(center=(600, 300))
+        sc.blit(dv, place_1)
 
-    # текущее значение скорости
-    v_km = int(round(v / 1000, 0))
-    tec_zn = font.render(str(v_km) + ' km/s', 0, gold)
-    place = tec_zn.get_rect(center=(600, 650))
-    sc.blit(tec_zn, place)
+        place_2 = st.get_rect(center=(600, 420))
+        sc.blit(st, place_2)
 
-    # гамма и бетта
-    b = v ** 2 / c ** 2
-    y = 1 / math.sqrt(1 - b)
+        # текущее значение скорости
+        v_km = int(round(v / 1000, 0))
+        tec_zn = font.render(str(v_km) + ' km/s', 0, gold)
+        place = tec_zn.get_rect(center=(600, 650))
+        sc.blit(tec_zn, place)
 
-    # меняю длину стержня
-    l_s = round(l_0 / y, 3)
-    surf_d = pygame.Surface((300-l_s, 20))
-    surf_d.fill(white)
-    surf_d.set_alpha(80)
-    surf_s = pygame.Surface((l_s, 20))
-    surf_s.fill(gold)
+        # гамма и бетта
+        b = v ** 2 / c ** 2
+        y = 1 / math.sqrt(1 - b)
 
-    r = round((l_s / l_0) * 100, 2)
-    rit = font.render(str(r) + '%', 0, gold)
-    sc.blit(rit, (450, 500))
+        # меняю длину стержня
+        l_s = round(l_0 / y, 3)
+        surf_d = pygame.Surface((300-l_s, 20))
+        surf_d.fill(white)
+        surf_d.set_alpha(80)
+        surf_s = pygame.Surface((l_s, 20))
+        surf_s.fill(gold)
 
-    # рисую стержни
-    sc.blit(surf_d, (50 + l_s, 500))
-    sc.blit(surf_l, (50, 200))
-    sc.blit(surf_s, (50, 500))
+        r = round((l_s / l_0) * 100, 2)
+        rit = font.render(str(r) + '%', 0, gold)
+        sc.blit(rit, (450, 500))
 
-    # часы
-    t_s = t / y
-    del_a_s = del_a_r * t_s
-    angle_r += del_a_r
-    angle_s += del_a_s
+        # рисую стержни
+        sc.blit(surf_d, (50 + l_s, 500))
+        sc.blit(surf_l, (50, 200))
+        sc.blit(surf_s, (50, 500))
 
-    f_pos_x_r = math.cos(angle_r) * rd
-    f_pos_y_r = math.sin(angle_r) * rd
-    f_pos_r = (f_pos_x_r + pos_x_r, f_pos_y_r + pos_y_r)
+        # часы
+        t_s = t / y
+        del_a_s = del_a_r * t_s
+        angle_r += del_a_r
+        angle_s += del_a_s
 
-    f_pos_x_s = math.cos(angle_s) * rd
-    f_pos_y_s = math.sin(angle_s) * rd
-    f_pos_s = (f_pos_x_s + pos_x_s, f_pos_y_s + pos_y_s)
+        f_pos_x_r = math.cos(angle_r) * rd
+        f_pos_y_r = math.sin(angle_r) * rd
+        f_pos_r = (f_pos_x_r + pos_x_r, f_pos_y_r + pos_y_r)
 
-    # рисую часы
-    pygame.draw.circle(sc, gold, pos_r, rd + 8, 83)
-    pygame.draw.circle(sc, white, pos_r, rd + 5, 80)
-    pygame.draw.circle(sc, white, pos_r, rd, 75)
+        f_pos_x_s = math.cos(angle_s) * rd
+        f_pos_y_s = math.sin(angle_s) * rd
+        f_pos_s = (f_pos_x_s + pos_x_s, f_pos_y_s + pos_y_s)
 
-    pygame.draw.circle(sc, gold, pos_s, rd + 8, 83)
-    pygame.draw.circle(sc, white, pos_s, rd + 5, 80)
-    pygame.draw.circle(sc, white, pos_s, rd, 75)
+        # рисую часы
+        pygame.draw.circle(sc, gold, pos_r, rd + 8, 83)
+        pygame.draw.circle(sc, white, pos_r, rd + 5, 80)
+        pygame.draw.circle(sc, white, pos_r, rd, 75)
 
-    pygame.draw.line(sc, black, pos_r, f_pos_r, 3)
-    pygame.draw.line(sc, black, pos_s, f_pos_s, 3)
+        pygame.draw.circle(sc, gold, pos_s, rd + 8, 83)
+        pygame.draw.circle(sc, white, pos_s, rd + 5, 80)
+        pygame.draw.circle(sc, white, pos_s, rd, 75)
 
-    pygame.draw.circle(sc, black, pos_r, 5, 5)
-    pygame.draw.circle(sc, black, pos_s, 5, 5)
-    # рисую линию
-    pygame.draw.line(sc, gold, [0, 360], [1200, 360], 4)
+        pygame.draw.line(sc, black, pos_r, f_pos_r, 3)
+        pygame.draw.line(sc, black, pos_s, f_pos_s, 3)
 
-    osn.fill(white)
+        pygame.draw.circle(sc, black, pos_r, 5, 5)
+        pygame.draw.circle(sc, black, pos_s, 5, 5)
 
-    osn.blit(polz, (x, 0))
-    sc.blit(osn, (500, 600))
+        # рисую линию
+        pygame.draw.line(sc, gold, [0, 360], [1200, 360], 4)
+
+        osn.fill(white)
+
+        osn.blit(polz, (x, 0))
+        sc.blit(osn, (500, 600))
 
     pygame.display.update()
     pygame.time.delay(100)

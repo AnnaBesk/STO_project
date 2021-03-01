@@ -51,11 +51,10 @@ timer.blit(time, place_t)
 sc.blit(timer, (100, 70))
 
 # ticker
-angle = 65
-angle_r = math.radians(65)
+angle = math.radians(65)
 g = 9.8
 r = 300
-a = g * math.sin(math.radians(90 - angle))
+a = abs(g * math.sin(math.radians(90) - angle))
 del_angle = a / r
 v = 0
 sch = 0
@@ -64,8 +63,8 @@ pos_start_x = 600
 pos_start_y = 150
 pos_start = (pos_start_x, pos_start_y)
 
-pos_x = math.cos(angle_r) * r
-pos_y = math.sin(angle_r) * r
+pos_x = math.cos(angle) * r
+pos_y = math.sin(angle) * r
 pos = (pos_x + pos_start_x, pos_y + pos_start_y)
 
 pygame.draw.circle(sc, black, pos_start, 10, 10)
@@ -102,44 +101,40 @@ while True:
         sc.blit(b_stop, b_stop_pos)
 
         # маятник
-        a = g * math.sin(math.radians(90-angle))  # меняю ускорение
+        a = abs(g * math.sin(math.radians(90) - angle))  # меняю ускорение
         del_angle = a / r  # меняю угловое ускорение
-        d_a=math.degrees(del_angle)
+        print(del_angle)
         if v <= 0:
             r_1 = True
             sch += 1
-        elif (sch % 2 == 1) and round(a)==0:
+        elif (sch % 2 == 1) and round(a, 2) == 0:
             r_1 = False
-            del_angle = math.radians(3)
-            a = 10
-        elif (sch % 2 == 0) and round(a)==0:
+            a = 1
+            del_angle = math.radians(1)
+        elif (sch % 2 == 0) and round(a, 2) == 0:
             r_1 = False
-            del_angle=math.radians(3)
-            a=10
+            del_angle = math.radians(1)
+            a = 1
         if r_1:
             v = v + a
             if sch % 2 == 1:
-                angle_r += del_angle
-                angle+=d_a
+                angle += del_angle
             else:
-                angle_r -= del_angle
-                angle-=d_a
+                angle -= del_angle
         if not r_1:
             v = v - a
             if sch % 2 == 1:
-                angle_r += del_angle
-                angle+=d_a
+                angle += del_angle
             else:
-                angle_r -= del_angle
-                angle-=d_a
+                angle -= del_angle
 
-        pos_x = math.cos(angle_r) * r
-        pos_y = math.sin(angle_r) * r
+        pos_x = math.cos(angle) * r
+        pos_y = math.sin(angle) * r
         pos = (pos_x + pos_start_x, pos_y + pos_start_y)
 
         pygame.draw.circle(sc, black, pos_start, 10, 10)
         pygame.draw.line(sc, black, pos_start, pos, 3)
-        print(a)
+
     if not start:
         pygame.draw.rect(sc, lime, (130, 120, 140, 40))
         b_start = font.render('START', 1, white)

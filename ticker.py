@@ -55,8 +55,9 @@ angle = math.radians(65)
 g = 9.8
 r = 300
 a = abs(g * math.sin(math.radians(90) - angle))
-del_angle = a / r
+a_angle = a / r
 v = 0
+v_angle=0
 sch = 0
 
 pos_start_x = 600
@@ -102,31 +103,30 @@ while True:
 
         # маятник
         a = abs(g * math.sin(math.radians(90) - angle))  # меняю ускорение
-        del_angle = a / r  # меняю угловое ускорение
-        print(del_angle)
+        a_angle = a / r  # меняю угловое ускорение
+
         if v <= 0:
             r_1 = True
             sch += 1
-        elif (sch % 2 == 1) and round(a, 2) == 0:
+        elif (sch % 2 == 1) and a<1:
             r_1 = False
-            a = 1
-            del_angle = math.radians(1)
-        elif (sch % 2 == 0) and round(a, 2) == 0:
+        elif (sch % 2 == 0) and a<1:
             r_1 = False
-            del_angle = math.radians(1)
-            a = 1
         if r_1:
             v = v + a
+            v_angle = v_angle +a_angle
             if sch % 2 == 1:
-                angle += del_angle
+                angle += v_angle
             else:
-                angle -= del_angle
+                angle -= v_angle
         if not r_1:
             v = v - a
-            if sch % 2 == 1:
-                angle += del_angle
+            v_angle=v_angle-a_angle
+            if sch%2 == 1:
+                angle+=v_angle
             else:
-                angle -= del_angle
+                angle -= v_angle
+
 
         pos_x = math.cos(angle) * r
         pos_y = math.sin(angle) * r
@@ -134,7 +134,6 @@ while True:
 
         pygame.draw.circle(sc, black, pos_start, 10, 10)
         pygame.draw.line(sc, black, pos_start, pos, 3)
-
     if not start:
         pygame.draw.rect(sc, lime, (130, 120, 140, 40))
         b_start = font.render('START', 1, white)
